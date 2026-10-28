@@ -4,7 +4,7 @@ Tommy 的匿名商用工程案例。我以 AI 協作開發，處理網路客戶�
 
 公開內容為重新撰寫的案例與概念圖。商用程式、原產品名稱、部署資料及營運數據保留私有。
 
-[English](README.md) · [架構與取捨](docs/architecture.md) · [驗證範圍](docs/verification.md) · [作品集](https://github.com/asdc163/ai-builder-portfolio)
+[English](README.md) · [架構與取捨](docs/architecture.md) · [驗證範圍](docs/verification.md) · [TPM 交付決策](docs/delivery-decisions.md) · [作品集](https://github.com/asdc163/ai-builder-portfolio)
 
 ## 要解決什麼
 

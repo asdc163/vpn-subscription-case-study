@@ -4,7 +4,7 @@ An anonymized commercial engineering case study by Tommy. I worked on a network 
 
 **Public material:** documentation and conceptual diagrams. The commercial application, client identity, infrastructure, and business data remain private.
 
-[繁體中文](README.zh-TW.md) · [Architecture and decisions](docs/architecture.md) · [Verification scope](docs/verification.md) · [Portfolio](https://github.com/asdc163/ai-builder-portfolio)
+[繁體中文](README.zh-TW.md) · [Architecture and decisions](docs/architecture.md) · [Verification scope](docs/verification.md) · [Delivery decisions for TPM review](docs/delivery-decisions.md) · [Portfolio](https://github.com/asdc163/ai-builder-portfolio)
 
 ## The product problem
 
