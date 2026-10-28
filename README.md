@@ -1,37 +1,27 @@
-# VPN Subscription System
+# VPN subscription system
 
-An anonymized commercial engineering case study by Tommy. I worked on a network client and the account, checkout, renewal, and entitlement flows around it, using AI-assisted development.
+A commercial network-client build with account, checkout and renewal flows. I worked on the product flow, Swift/SwiftUI client, Node.js services, payment state and engineering handoff.
 
-**Public material:** documentation and conceptual diagrams. The commercial application, client identity, infrastructure, and business data remain private.
+A user should be able to pay, return to the client and see the correct subscription. Partial payments, late transfers and restarts make that harder than the screens suggest.
 
-[繁體中文](README.zh-TW.md) · [Architecture and decisions](docs/architecture.md) · [Verification scope](docs/verification.md) · [Delivery decisions for TPM review](docs/delivery-decisions.md) · [Portfolio](https://github.com/asdc163/ai-builder-portfolio)
+[繁體中文](README.zh-TW.md) · [Architecture](docs/architecture.md) · [Delivery notes](docs/delivery-decisions.md)
 
-## The product problem
+## Keep the ledger exact and the next action readable
 
-A user needs to choose a connection location, understand their subscription, pay, and return to the client with the right access. The difficult cases happen between those screens: partial payment, a delayed transfer, a renewal before expiry, or a service restart during confirmation.
+Each order has its own payment destination. The ledger preserves the actual received amount, including partial or excess funds. The interface explains the next action without changing the accounting record to make the display simpler.
 
-## My work
+Once a confirmed payment has updated the subscription, repeated checks or a restart must not grant another period. Early renewals also retain the user's remaining time.
 
-I worked across product scope, the client experience, subscription and payment-state implementation, failure handling, and engineering handoff. The engineering included a Swift/SwiftUI iOS client, Node.js services, and a browser checkout flow. Earlier browser-client work had a narrower browser-only routing scope.
+## Existing orders still need reconciliation
 
-## Decisions that mattered
+An exhausted address pool can stop new orders while existing ones still need payment checks. I separated those states so capacity changes would not hide an already-open checkout.
 
-- Give each order its own payment destination so attribution does not depend on recognizing a shared amount.
-- Keep exact received amounts in the ledger while making the next payment action readable for a person.
-- Apply a confirmed payment once, including after repeated checks or a restart.
-- Separate the capacity to open new orders from the ability to reconcile existing ones.
-- Route late or uncertain payments to review without quietly reassigning them.
+Late or uncertain funds retain a review path. They are not silently reassigned to a different order or treated as another renewal.
 
-A renewal also has to preserve the user's remaining time. A payment status page and an entitlement record must agree about what has actually been granted.
+## Delivery status
 
-## Recorded delivery state
+The handoff includes controlled backend and checkout checks, iOS simulator work and an unsigned device-target build. Production infrastructure, real funds, signing and target-network acceptance remain separate steps in [validation notes](docs/verification.md).
 
-The private project records describe automated backend checks, controlled checkout journeys, iOS simulator checks, and an unsigned device-target build. This public case was checked against those records on 2026-10-27; the commercial application was not rerun for this publication.
+An earlier browser-client version had browser-only routing scope. It is distinct from the native client described here.
 
-Production hosting and nodes, real funds, Apple signing, physical-device operation, and regional network availability require separate acceptance. This case makes no claim of a publicly available VPN service or verified use on a restricted network.
-
-## What this demonstrates
-
-Subscription lifecycle design, payment reconciliation, client/backend coordination, and a handoff that makes unresolved release work visible. AI assisted the development process; a model is not required for the payment or access decisions described here.
-
-There is no runnable commercial code or customer demo in this repository. See [disclosure boundaries](DISCLOSURE.md) before reusing or requesting material.
+Commercial code, client identity and operating data stay private. This public case contains documentation and conceptual diagrams. Development was AI-assisted; payment and access decisions use deterministic rules. [Disclosure](DISCLOSURE.md)
